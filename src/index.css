@@ -110,10 +110,13 @@ body {
 
 /* ===== GRADIENT TEXT ===== */
 .gradient-text {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 35%, #06b6d4 70%, #6366f1 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: shine 5s linear infinite;
+  display: inline-block;
 }
 
 .gradient-text-2 {
@@ -121,6 +124,11 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+@keyframes shine {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }
 
 /* ===== SECTION HEADER ===== */
@@ -157,47 +165,64 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
   color: white;
-  padding: 0.7rem 1.75rem;
+  padding: 0.85rem 2.2rem;
   border-radius: 50px;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
   position: relative;
   overflow: hidden;
+  z-index: 1;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.45);
 }
 
 .btn-outline {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   background: transparent;
   color: var(--primary);
-  padding: 0.7rem 1.75rem;
+  padding: 0.85rem 2.2rem;
   border-radius: 50px;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   border: 2px solid var(--primary);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+  position: relative;
 }
 
 .btn-outline:hover {
   background: var(--primary);
   color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
 }
 
 /* ===== SKILL BAR ===== */
@@ -2861,5 +2886,386 @@ img {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.15rem;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   ADMIN LOGIN PAGE  (al-* classes)
+════════════════════════════════════════════════════════════════ */
+
+/* ── Full-page wrapper ── */
+.al-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e0e7ff 0%, #eef6ff 40%, #f5eeff 100%);
+  overflow: hidden;
+  padding: 2rem 1rem;
+}
+
+/* ── Decorative background blobs ── */
+.al-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.al-blob-1 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, #6366f1, transparent 70%);
+  top: -120px;
+  right: -80px;
+}
+
+.al-blob-2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #8b5cf6, transparent 70%);
+  bottom: -100px;
+  left: -60px;
+}
+
+.al-blob-3 {
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, #06b6d4, transparent 70%);
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ── Dot grid overlay ── */
+.al-grid-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(99,102,241,0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Back button ── */
+.al-back-btn {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(255,255,255,0.9);
+  box-shadow: 0 2px 12px rgba(99,102,241,0.08);
+  color: var(--text-secondary, #475569);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 10;
+  text-decoration: none;
+}
+
+.al-back-btn:hover {
+  background: rgba(255,255,255,0.95);
+  color: var(--primary, #6366f1);
+  box-shadow: 0 4px 20px rgba(99,102,241,0.15);
+}
+
+.al-back-arrow {
+  flex-shrink: 0;
+}
+
+/* ── Card container ── */
+.al-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.78);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  border: 1.5px solid rgba(255,255,255,0.9);
+  border-radius: 1.5rem;
+  padding: 2.5rem 2rem 2rem;
+  box-shadow:
+    0 8px 40px rgba(99,102,241,0.10),
+    0 1.5px 4px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ── Top accent bar ── */
+.al-card-top-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+/* ── Logo ── */
+.al-logo-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.al-logo {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-weight: 800;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 18px rgba(99,102,241,0.35);
+  position: relative;
+  z-index: 1;
+}
+
+.al-logo-glow {
+  position: absolute;
+  inset: -8px;
+  border-radius: 1.1rem;
+  background: radial-gradient(circle, rgba(99,102,241,0.20), transparent 70%);
+  animation: al-glow-pulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes al-glow-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* ── Header ── */
+.al-header {
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.al-title {
+  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--text-primary, #0f172a);
+  margin: 0 0 0.3rem;
+  line-height: 1.2;
+}
+
+.al-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary, #475569);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Divider ── */
+.al-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.18), transparent);
+  margin: 1.25rem 0;
+}
+
+/* ── Form ── */
+.al-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+/* ── Labels ── */
+.al-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary, #0f172a);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.01em;
+}
+
+/* ── Input wrapper ── */
+.al-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.85);
+  border: 1.5px solid rgba(99,102,241,0.15);
+  border-radius: 0.75rem;
+  padding: 0 0.85rem;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.al-input-wrap--focused {
+  border-color: var(--primary, #6366f1);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.10);
+  background: white;
+}
+
+.al-input-icon {
+  color: var(--text-muted, #94a3b8);
+  flex-shrink: 0;
+  margin-right: 0.6rem;
+  transition: color 0.25s ease;
+}
+
+.al-input-wrap--focused .al-input-icon {
+  color: var(--primary, #6366f1);
+}
+
+.al-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.72rem 0;
+  font-size: 0.875rem;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  color: var(--text-primary, #0f172a);
+  line-height: 1.5;
+}
+
+.al-input::placeholder {
+  color: var(--text-muted, #94a3b8);
+  font-weight: 400;
+}
+
+.al-input-right {
+  display: flex;
+  align-items: center;
+  margin-left: 0.4rem;
+}
+
+/* ── Eye toggle ── */
+.al-eye-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted, #94a3b8);
+  padding: 0.3rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.al-eye-btn:hover {
+  color: var(--primary, #6366f1);
+  background: rgba(99,102,241,0.06);
+}
+
+/* ── Submit button wrapper ── */
+.al-btn-wrap {
+  margin-top: 0.4rem;
+}
+
+/* ── Submit button ── */
+.al-submit-btn {
+  width: 100%;
+  padding: 0.78rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.al-submit-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.al-submit-btn:hover::before {
+  opacity: 1;
+}
+
+.al-submit-btn:hover {
+  box-shadow: 0 6px 24px rgba(99,102,241,0.50);
+}
+
+.al-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.al-btn-inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* ── Spinner ── */
+.al-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: al-spin 0.65s linear infinite;
+}
+
+@keyframes al-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Footer note ── */
+.al-footer-note {
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: var(--text-muted, #94a3b8);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ── Mobile responsive ── */
+@media (max-width: 480px) {
+  .al-card {
+    padding: 2rem 1.25rem 1.5rem;
+    border-radius: 1.25rem;
+  }
+
+  .al-back-btn {
+    top: 1rem;
+    left: 1rem;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  .al-title {
+    font-size: 1.35rem;
   }
 }

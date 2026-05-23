@@ -148,7 +148,7 @@ const HeroSection = () => (
           {/* ── Available badge ── */}
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-card mb-6 hero-badge"
+            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-card mb-8 hero-badge"
           >
             <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-70" />
@@ -162,7 +162,7 @@ const HeroSection = () => (
           {/* ── Greeting ── */}
           <motion.p
             variants={itemVariants}
-            className="text-sm font-medium text-slate-400 mb-1.5 tracking-widest uppercase"
+            className="text-sm font-medium text-slate-400 mb-2 md:mb-3 tracking-widest uppercase"
           >
             Hello, I'm
           </motion.p>
@@ -170,17 +170,15 @@ const HeroSection = () => (
           {/* ── Name ── */}
           <motion.h1
             variants={itemVariants}
-            className="font-bold leading-[1.08] mb-3 hero-name"
+            className="font-bold leading-[1.08] mb-4 md:mb-5 hero-name"
           >
-            <span className="gradient-text">Muhammad</span>
-            <br />
-            <span className="text-slate-800">Afzaal Khan</span>
+            <span className="gradient-text">Muhammad <br className="sm:hidden" />Afzaal Khan</span>
           </motion.h1>
 
           {/* ── Typing Animation Badge ── */}
           <motion.div
             variants={itemVariants}
-            className="flex items-center justify-center lg:justify-start mb-5"
+            className="flex items-center justify-center lg:justify-start mb-6 md:mb-7"
           >
             <span className="hero-typing-badge">
               <span className="hero-typing-dot" />
@@ -206,7 +204,7 @@ const HeroSection = () => (
           {/* ── Description ── */}
           <motion.p
             variants={itemVariants}
-            className="text-sm sm:text-[15px] text-slate-500 max-w-[440px] mx-auto lg:mx-0 mb-7 leading-relaxed"
+            className="text-sm sm:text-[15px] text-slate-500 max-w-[440px] mx-auto lg:mx-0 mb-8 md:mb-10 leading-relaxed"
           >
             1 Year Experience as Full Stack Web Developer.
             <br />
@@ -216,12 +214,18 @@ const HeroSection = () => (
           {/* ── CTA Buttons ── */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-8"
+            className="flex flex-col sm:flex-row gap-4 lg:gap-5 justify-center lg:justify-start mb-12 md:mb-16"
           >
-            <Link to="contact" smooth duration={600} offset={-72}>
+            <Link
+              to="contact"
+              smooth
+              duration={600}
+              offset={-72}
+              className="w-full sm:w-auto inline-flex"
+            >
               <button
                 id="hero-btn-talk"
-                className="btn-primary w-full sm:w-auto group"
+                className="btn-primary w-full group"
               >
                 Let's Talk
                 <FiArrowRight
@@ -231,29 +235,30 @@ const HeroSection = () => (
               </button>
             </Link>
 
-            <button
+            <a
               id="hero-btn-cv"
-              className="btn-outline w-full sm:w-auto group"
-              onClick={handleDownloadCV}
+              href="/cv.pdf"
+              download="Muhammad_Afzaal_Khan_CV.pdf"
+              className="btn-outline w-full sm:w-auto group flex items-center justify-center gap-2"
             >
               <FiDownload
                 size={15}
                 className="transition-transform duration-300 group-hover:translate-y-0.5"
               />
               Download CV
-            </button>
+            </a>
           </motion.div>
 
           {/* ── Social Icons — improved spacing ── */}
           <motion.div
             variants={itemVariants}
-            className="hero-socials-row"
+            className="hero-socials-row mt-4"
           >
             <span className="hero-socials-label">
               Follow Me
             </span>
 
-            <div className="hero-socials-icons">
+            <div className="hero-socials-icons gap-3 sm:gap-4">
               {socialLinks.map((s) =>
                 s.active ? (
                   <motion.a
