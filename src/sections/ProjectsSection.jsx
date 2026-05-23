@@ -24,7 +24,7 @@ const projects = [
     features: ['Crop Tracking', 'Smart Farming', 'Farmer Dashboard', 'Weather Monitoring', 'Resource Management'],
     github: 'https://github.com/mafzaalwb01-dev',
     live: '#',
-    image: '/agri-dashboard.png',
+    image: '/mafzaalwb01-dev/agri-dashboard.png',
     gradient: 'linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 100%)',
     accentColor: '#10b981',
     badge: '🌾 Smart Farming',
