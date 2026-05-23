@@ -318,7 +318,7 @@ const HeroSection = () => (
               <div className="profile-ring hero-profile-ring">
                 <div className="hero-image-inner">
                   <img
-                    src="/assets/profile.png"
+                    src="/afzaal-portfolio/assets/profile.png"
                     alt="Muhammad Afzaal Khan — MERN Stack Developer"
                     className="hero-profile-img"
                     draggable={false}
