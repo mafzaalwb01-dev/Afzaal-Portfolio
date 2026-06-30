@@ -167,7 +167,7 @@ const HeroSection = () => (
 
             <a
               id="hero-btn-cv"
-              href="/cv.pdf"
+              href={`${import.meta.env.BASE_URL}cv.pdf`}
               download="Muhammad_Afzaal_Khan_CV.pdf"
               className="hero-btn-outline"
             >
@@ -219,7 +219,7 @@ const HeroSection = () => (
               transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
             >
               <img
-                src="/assets/profile.png"
+                src={`${import.meta.env.BASE_URL}assets/profile.png`}
                 alt="Muhammad Afzaal Khan — MERN Stack Developer"
                 className="hero-card-image"
                 draggable={false}
