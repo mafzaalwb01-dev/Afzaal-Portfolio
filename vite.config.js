@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  base: './',
+  base: '/Afzaal-Portfolio/',
   server: {
     port: 5173,
     proxy: {
