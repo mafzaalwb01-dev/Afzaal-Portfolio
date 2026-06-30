@@ -21,7 +21,7 @@ const AnimatedCounter = ({ end, suffix = '' }) => {
 };
 
 const stats = [
-  { icon: <FiCode size={24} />, value: 1,   suffix: '+', label: 'Years Experience', color: 'var(--primary)' },
+  { icon: <FiCode size={24} />, value: 7,   suffix: '+', label: 'Months Experience', color: 'var(--primary)' },
   { icon: <FiCpu  size={24} />, value: 10,  suffix: '+', label: 'Projects Done',    color: 'var(--secondary)' },
   { icon: <FiShield size={24} />, value: 9, suffix: '+', label: 'Technologies',     color: 'var(--accent)' },
   { icon: <FiAward  size={24} />, value: 100, suffix: '%', label: 'Satisfaction',   color: '#10b981' },
@@ -29,20 +29,14 @@ const stats = [
 
 const facts = [
   { icon: <FiBriefcase size={15} />, label: 'Role',       value: 'MERN Stack Developer' },
-  { icon: <FiCode      size={15} />, label: 'Experience', value: '1+ Year' },
-  { icon: <FiBook      size={15} />, label: 'Education',  value: '1st Year Student' },
+  { icon: <FiCode      size={15} />, label: 'Experience', value: '7 Months' },
+  { icon: <FiBook      size={15} />, label: 'Education',  value: '11th Class Student' },
   { icon: <FiUser      size={15} />, label: 'Academy',    value: 'Logic Gigs' },
   { icon: <FiMapPin    size={15} />, label: 'Location',   value: 'Pakistan 🇵🇰' },
-  { icon: <FiTarget    size={15} />, label: 'Focus',      value: 'Full Stack + Cyber Sec' },
+  { icon: <FiTarget    size={15} />, label: 'Focus',      value: 'Full Stack Dev & Future Software Eng' },
 ];
 
 const techs = ['React.js', 'Node.js', 'MongoDB', 'Express.js', 'JavaScript', 'Tailwind CSS', 'Next.js', 'Git'];
-
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] },
-});
 
 const AboutSection = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 });
@@ -57,8 +51,9 @@ const AboutSection = () => {
 
         {/* ── Section Header ── */}
         <motion.div
-          {...fadeUp(0)}
-          animate={inView ? fadeUp(0).animate : {}}
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
           className="about-header"
         >
           <span className="section-badge">About Me</span>
@@ -81,10 +76,12 @@ const AboutSection = () => {
             transition={{ duration: 0.65, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="about-facts-col"
           >
-            <div className="about-facts-card glass-card">
+            <div className="about-facts-card">
               {/* Card header */}
               <div className="about-facts-card-header">
-                <div className="about-facts-icon">💻</div>
+                <div className="about-facts-icon-wrapper">
+                  <FiCode size={20} />
+                </div>
                 <div>
                   <h3 className="about-facts-title">Quick Facts</h3>
                   <p className="about-facts-subtitle">Professional snapshot</p>
@@ -167,11 +164,11 @@ const AboutSection = () => {
           {stats.map((stat, i) => (
             <motion.div
               key={i}
-              className="about-stat-card glass-card"
+              className="about-stat-card"
               whileHover={{ y: -6, scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300, damping: 18 }}
             >
-              <div className="about-stat-icon" style={{ color: stat.color, background: `color-mix(in srgb, ${stat.color} 15%, transparent)` }}>
+              <div className="about-stat-icon" style={{ color: stat.color, background: `color-mix(in srgb, ${stat.color} 12%, transparent)` }}>
                 {stat.icon}
               </div>
               <div className="about-stat-number" style={{ color: stat.color }}>

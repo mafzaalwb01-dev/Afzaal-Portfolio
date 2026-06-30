@@ -31,16 +31,16 @@ const FooterSection = () => {
               A passionate Full Stack Developer building premium, responsive, and highly functional web applications. Bringing ideas to life through elegant code and intuitive design.
             </p>
             <div className="footer-social-row">
-              <a href="https://github.com/mafzaalwb01-dev" target="_blank" rel="noopener noreferrer" className="footer-social-btn hover:text-white hover:border-white hover:bg-white/10" aria-label="GitHub">
+              <a href="https://github.com/mafzaalwb01-dev" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="GitHub">
                 <FiGithub size={16} />
               </a>
-              <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer" className="footer-social-btn hover:text-[#0077b5] hover:border-[#0077b5] hover:bg-[#0077b5]/10" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="LinkedIn">
                 <FiLinkedin size={16} />
               </a>
-              <a href="https://wa.me/923350599196" target="_blank" rel="noopener noreferrer" className="footer-social-btn hover:text-[#25D366] hover:border-[#25D366] hover:bg-[#25D366]/10" aria-label="WhatsApp">
+              <a href="https://wa.me/923350599196" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="WhatsApp">
                 <FaWhatsapp size={16} />
               </a>
-              <a href="https://www.tiktok.com/@afzaaltechhub" target="_blank" rel="noopener noreferrer" className="footer-social-btn hover:text-white hover:border-white hover:bg-white/10" aria-label="TikTok">
+              <a href="https://www.tiktok.com/@afzaaltechhub" target="_blank" rel="noopener noreferrer" className="footer-social-btn" aria-label="TikTok">
                 <FaTiktok size={16} />
               </a>
             </div>
@@ -76,17 +76,17 @@ const FooterSection = () => {
             <div className="footer-contact-chips">
               <a href="mailto:mafzaalwb01@gmail.com" className="footer-chip">
                 <span className="footer-chip-dot footer-chip-dot-indigo" />
-                <FiMail size={14} className="opacity-70" />
+                <FiMail size={14} className="footer-chip-icon" />
                 mafzaalwb01@gmail.com
               </a>
               <a href="tel:+923350599196" className="footer-chip">
                 <span className="footer-chip-dot footer-chip-dot-green" />
-                <FiPhone size={14} className="opacity-70" />
+                <FiPhone size={14} className="footer-chip-icon" />
                 +92 335 0599196
               </a>
-              <div className="footer-chip cursor-default">
+              <div className="footer-chip footer-chip-static">
                 <span className="footer-chip-dot footer-chip-dot-pink" />
-                <FiMapPin size={14} className="opacity-70" />
+                <FiMapPin size={14} className="footer-chip-icon" />
                 Punjab, Pakistan
               </div>
             </div>
@@ -102,7 +102,7 @@ const FooterSection = () => {
           
           <button onClick={scrollToTop} className="footer-back-top group" aria-label="Scroll to top">
             Back to Top
-            <FiArrowUp size={14} className="transition-transform duration-300 group-hover:-translate-y-1" />
+            <FiArrowUp size={14} className="footer-back-top-arrow" />
           </button>
         </div>
       </div>

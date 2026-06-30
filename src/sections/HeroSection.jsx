@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiDownload, FiArrowRight } from 'react-icons/fi';
-import { FiGithub } from 'react-icons/fi';
+import { FiDownload, FiArrowRight, FiGithub, FiMapPin, FiCode } from 'react-icons/fi';
 import { FaLinkedinIn, FaTiktok, FaWhatsapp } from 'react-icons/fa';
 import { FaReact, FaNodeJs } from 'react-icons/fa';
 import { SiMongodb, SiExpress, SiNextdotjs, SiTailwindcss, SiJavascript } from 'react-icons/si';
@@ -17,7 +16,6 @@ const socialLinks = [
     icon: <FiGithub size={18} />,
     href: 'https://github.com/mafzaalwb01-dev',
     label: 'GitHub',
-    active: true,
     color: '#6C63FF',
   },
   {
@@ -25,7 +23,6 @@ const socialLinks = [
     icon: <FaLinkedinIn size={17} />,
     href: 'https://www.linkedin.com/feed/',
     label: 'LinkedIn',
-    active: true,
     color: '#0077b5',
   },
   {
@@ -33,7 +30,6 @@ const socialLinks = [
     icon: <FaWhatsapp size={18} />,
     href: 'https://wa.me/923350599196',
     label: 'WhatsApp',
-    active: true,
     color: '#25d366',
   },
   {
@@ -41,7 +37,6 @@ const socialLinks = [
     icon: <FaTiktok size={16} />,
     href: 'https://www.tiktok.com/@afzaaltechhub',
     label: 'TikTok',
-    active: true,
     color: '#6C63FF',
   },
 ];
@@ -57,17 +52,6 @@ const techStack = [
   { name: 'Next.js', icon: <SiNextdotjs /> },
   { name: 'Tailwind', icon: <SiTailwindcss /> },
   { name: 'JavaScript', icon: <SiJavascript /> },
-];
-
-/* ──────────────────────────────────────────────────────────────────────────
-   FLOATING TECH BADGES (around profile image)
-────────────────────────────────────────────────────────────────────────── */
-const floatingBadges = [
-  { label: 'React', icon: <FaReact size={12} />, position: 'hero-float-label--top-left', dotClass: 'hero-float-dot--cyan', delay: 0 },
-  { label: 'Node.js', icon: <FaNodeJs size={12} />, position: 'hero-float-label--left', dotClass: 'hero-float-dot--green', delay: 0.5 },
-  { label: 'MongoDB', icon: <SiMongodb size={12} />, position: 'hero-float-label--bottom-left', dotClass: 'hero-float-dot--green', delay: 1 },
-  { label: 'Express', icon: <SiExpress size={12} />, position: 'hero-float-label--top-right', dotClass: 'hero-float-dot--purple', delay: 1.5 },
-  { label: 'Next.js', icon: <SiNextdotjs size={12} />, position: 'hero-float-label--bottom-right', dotClass: 'hero-float-dot--indigo', delay: 2 },
 ];
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -87,11 +71,12 @@ const itemVariants = {
   },
 };
 
-const imageVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.9, y: 20 },
   visible: {
     opacity: 1,
     scale: 1,
+    y: 0,
     transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.15 },
   },
 };
@@ -100,71 +85,50 @@ const imageVariants = {
    HERO SECTION COMPONENT
 ────────────────────────────────────────────────────────────────────────── */
 const HeroSection = () => (
-  <section
-    id="home"
-    className="hero-bg"
-  >
-    {/* ── Decorative background blobs ── */}
+  <section id="home" className="hero-section-new">
+    {/* ── Decorative background elements ── */}
+    <div className="hero-bg-gradient" aria-hidden="true" />
     <div className="hero-blob hero-blob-1" aria-hidden="true" />
     <div className="hero-blob hero-blob-2" aria-hidden="true" />
     <div className="hero-blob hero-blob-3" aria-hidden="true" />
-
-    {/* ── Radial glow lights ── */}
-    <div className="hero-glow-light hero-glow-light-1" aria-hidden="true" />
-    <div className="hero-glow-light hero-glow-light-2" aria-hidden="true" />
-
-    {/* ── Subtle dot-grid background ── */}
     <div className="hero-grid-dots" aria-hidden="true" />
 
     {/* ═══════════════════════════════════════════════════════════════════
-        CONTENT GRID
+        CONTENT
     ═══════════════════════════════════════════════════════════════════ */}
-    <div className="section-wrapper relative z-10 w-full py-6 lg:py-0">
-      <div className="flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-14 xl:gap-20">
+    <div className="section-wrapper hero-content-wrapper">
+      <div className="hero-layout">
 
         {/* ════════════════════ LEFT — TEXT CONTENT ════════════════════ */}
         <motion.div
-          className="flex-1 text-center lg:text-left w-full min-w-0"
+          className="hero-text-col"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           {/* ── Available badge ── */}
-          <motion.div
-            variants={itemVariants}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-card mb-6 hero-badge"
-          >
-            <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-70" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+          <motion.div variants={itemVariants} className="hero-status-badge">
+            <span className="hero-status-dot-wrapper">
+              <span className="hero-status-ping" />
+              <span className="hero-status-dot" />
             </span>
-            <span className="text-xs font-semibold tracking-wide" style={{ color: 'var(--text-secondary)' }}>
-              Available for projects
-            </span>
+            <span className="hero-status-text">Available for projects</span>
           </motion.div>
 
           {/* ── Greeting ── */}
-          <motion.p
-            variants={itemVariants}
-            className="text-sm font-medium mb-2 md:mb-3 tracking-widest uppercase"
-            style={{ color: 'var(--text-muted)' }}
-          >
+          <motion.p variants={itemVariants} className="hero-greeting">
             Hello, I'm
           </motion.p>
 
           {/* ── Name ── */}
-          <motion.h1
-            variants={itemVariants}
-            className="font-bold leading-[1.05] mb-4 md:mb-5 hero-name"
-          >
-            <span className="gradient-text">Muhammad{' '}<br className="sm:hidden" />Afzaal Khan</span>
+          <motion.h1 variants={itemVariants} className="hero-name-new">
+            <span className="gradient-text">Muhammad</span>
+            <br />
+            <span className="gradient-text">Afzaal Khan</span>
           </motion.h1>
 
           {/* ── Typing Animation Badge ── */}
-          <motion.div
-            variants={itemVariants}
-            className="flex items-center justify-center lg:justify-start mb-5 md:mb-6"
-          >
+          <motion.div variants={itemVariants} className="hero-role-wrapper">
             <span className="hero-typing-badge">
               <span className="hero-typing-dot" />
               <TypeAnimation
@@ -187,36 +151,17 @@ const HeroSection = () => (
           </motion.div>
 
           {/* ── Description ── */}
-          <motion.p
-            variants={itemVariants}
-            className="text-sm sm:text-[15px] max-w-[460px] mx-auto lg:mx-0 mb-7 md:mb-8 leading-relaxed"
-            style={{ color: 'var(--text-secondary)' }}
-          >
-            1+ Year Experience as Full Stack Web Developer, building modern, responsive 
+          <motion.p variants={itemVariants} className="hero-description">
+            7 Months Experience as Full Stack Web Developer, building modern, responsive 
             and high-performance web applications with the MERN Stack ecosystem.
           </motion.p>
 
           {/* ── CTA Buttons ── */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-3.5 lg:gap-4 justify-center lg:justify-start mb-8 md:mb-10"
-          >
-            <Link
-              to="contact"
-              smooth
-              duration={600}
-              offset={-72}
-              className="w-full sm:w-auto inline-flex"
-            >
-              <button
-                id="hero-btn-talk"
-                className="btn-primary w-full group"
-              >
+          <motion.div variants={itemVariants} className="hero-cta-row">
+            <Link to="contact" smooth duration={600} offset={-72}>
+              <button id="hero-btn-talk" className="hero-btn-primary">
                 Hire Me
-                <FiArrowRight
-                  size={16}
-                  className="transition-transform duration-300 group-hover:translate-x-1"
-                />
+                <FiArrowRight size={16} />
               </button>
             </Link>
 
@@ -224,23 +169,17 @@ const HeroSection = () => (
               id="hero-btn-cv"
               href="/cv.pdf"
               download="Muhammad_Afzaal_Khan_CV.pdf"
-              className="btn-outline w-full sm:w-auto group flex items-center justify-center gap-2"
+              className="hero-btn-outline"
             >
-              <FiDownload
-                size={15}
-                className="transition-transform duration-300 group-hover:translate-y-0.5"
-              />
+              <FiDownload size={15} />
               Download CV
             </a>
           </motion.div>
 
           {/* ── Social Icons ── */}
-          <motion.div
-            variants={itemVariants}
-            className="hero-socials-row mb-8"
-          >
+          <motion.div variants={itemVariants} className="hero-socials-row">
             <span className="hero-socials-label">Follow Me</span>
-            <div className="hero-socials-icons gap-2.5">
+            <div className="hero-socials-icons">
               {socialLinks.map((s) => (
                 <motion.a
                   key={s.id}
@@ -248,7 +187,7 @@ const HeroSection = () => (
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.15, y: -4 }}
+                  whileHover={{ scale: 1.12, y: -3 }}
                   whileTap={{ scale: 0.92 }}
                   className="hero-social-icon-new"
                   aria-label={s.label}
@@ -260,74 +199,116 @@ const HeroSection = () => (
               ))}
             </div>
           </motion.div>
-
-          {/* ── Tech Stack Badges ── */}
-          <motion.div variants={itemVariants} className="hero-tech-badges">
-            {techStack.map((tech, i) => (
-              <motion.span
-                key={tech.name}
-                className="hero-tech-badge"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8 + i * 0.08, duration: 0.4 }}
-                whileHover={{ y: -3, scale: 1.05 }}
-              >
-                {tech.icon}
-                {tech.name}
-              </motion.span>
-            ))}
-          </motion.div>
         </motion.div>
 
-        {/* ════════════════════ RIGHT — PROFILE IMAGE ════════════════════ */}
+        {/* ════════════════════ RIGHT — PROFILE CARD ════════════════════ */}
         <motion.div
-          className="flex-shrink-0 flex items-center justify-center"
-          variants={imageVariants}
+          className="hero-card-col"
+          variants={cardVariants}
           initial="hidden"
           animate="visible"
         >
-          <div className="hero-image-wrapper">
+          <div className="hero-profile-card">
+            {/* Floating glow behind card */}
+            <div className="hero-card-glow" aria-hidden="true" />
 
-            {/* Slow-spinning dashed orbit ring */}
-            <div className="hero-orbit-ring" aria-hidden="true" />
-
-            {/* Pulsing glow aura behind image */}
-            <div className="hero-glow-aura" aria-hidden="true" />
-
-            {/* Floating up-down animation wrapper */}
-            <motion.div
-              animate={{ y: [0, -14, 0] }}
+            {/* Profile image */}
+            <motion.div 
+              className="hero-card-image-wrapper"
+              animate={{ y: [0, -10, 0] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="hero-image-float"
             >
-              {/* Gradient border ring */}
-              <div className="profile-ring hero-profile-ring">
-                <div className="hero-image-inner">
-                  <img
-                    src="/assets/profile.png"
-                    alt="Muhammad Afzaal Khan — MERN Stack Developer"
-                    className="hero-profile-img"
-                    draggable={false}
-                    loading="eager"
-                  />
-                </div>
-              </div>
+              <img
+                src="/assets/profile.png"
+                alt="Muhammad Afzaal Khan — MERN Stack Developer"
+                className="hero-card-image"
+                draggable={false}
+                loading="eager"
+              />
             </motion.div>
 
-            {/* Floating technology badges around image */}
-            {floatingBadges.map((badge, i) => (
-              <motion.div
-                key={badge.label}
-                animate={{ y: [0, i % 2 === 0 ? -8 : 8, 0] }}
-                transition={{ duration: 3 + i * 0.4, repeat: Infinity, ease: 'easeInOut', delay: badge.delay }}
-                className={`hero-float-label ${badge.position}`}
-              >
-                <span className={`hero-float-dot ${badge.dotClass}`} />
-                <span>{badge.label}</span>
-              </motion.div>
-            ))}
+            {/* Card info */}
+            <div className="hero-card-info">
+              <h3 className="hero-card-name">Muhammad Afzaal Khan</h3>
+              <p className="hero-card-role">Full Stack MERN Developer</p>
+              <div className="hero-card-location">
+                <FiMapPin size={12} />
+                <span>Punjab, Pakistan</span>
+              </div>
+            </div>
 
+            {/* Tech badges inside card */}
+            <div className="hero-card-techs">
+              {techStack.map((tech, i) => (
+                <motion.span
+                  key={tech.name}
+                  className="hero-card-tech-badge"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.8 + i * 0.08, duration: 0.4 }}
+                  whileHover={{ y: -2, scale: 1.05 }}
+                >
+                  {tech.icon}
+                  {tech.name}
+                </motion.span>
+              ))}
+            </div>
+
+            {/* Stats mini row */}
+            <div className="hero-card-stats">
+              <div className="hero-card-stat">
+                <span className="hero-card-stat-number">1+</span>
+                <span className="hero-card-stat-label">Years Exp</span>
+              </div>
+              <div className="hero-card-stat-divider" />
+              <div className="hero-card-stat">
+                <span className="hero-card-stat-number">10+</span>
+                <span className="hero-card-stat-label">Projects</span>
+              </div>
+              <div className="hero-card-stat-divider" />
+              <div className="hero-card-stat">
+                <span className="hero-card-stat-number">9+</span>
+                <span className="hero-card-stat-label">Technologies</span>
+              </div>
+            </div>
           </div>
+
+          {/* Floating badges around card */}
+          <motion.div
+            className="hero-floating-badge hero-floating-badge--tl"
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <FaReact size={14} className="hero-floating-badge-icon" />
+            <span>React</span>
+          </motion.div>
+
+          <motion.div
+            className="hero-floating-badge hero-floating-badge--tr"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+          >
+            <FaNodeJs size={14} className="hero-floating-badge-icon" />
+            <span>Node.js</span>
+          </motion.div>
+
+          <motion.div
+            className="hero-floating-badge hero-floating-badge--bl"
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+          >
+            <SiMongodb size={14} className="hero-floating-badge-icon" />
+            <span>MongoDB</span>
+          </motion.div>
+
+          <motion.div
+            className="hero-floating-badge hero-floating-badge--br"
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+          >
+            <FiCode size={14} className="hero-floating-badge-icon" />
+            <span>Full Stack</span>
+          </motion.div>
         </motion.div>
 
       </div>

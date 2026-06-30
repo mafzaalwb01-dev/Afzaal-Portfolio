@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FiLayout, FiCode, FiServer, FiLayers, FiSmartphone, FiDatabase } from 'react-icons/fi';
+import { FiLayout, FiCode, FiServer, FiLayers, FiSmartphone, FiDatabase, FiArrowRight } from 'react-icons/fi';
 
 const services = [
   { 
@@ -47,6 +47,10 @@ const ServicesSection = () => {
 
   return (
     <section id="services" className="services-section">
+      {/* Background blobs */}
+      <div className="services-blob services-blob-1" aria-hidden="true" />
+      <div className="services-blob services-blob-2" aria-hidden="true" />
+
       <div className="section-wrapper" ref={ref}>
         
         {/* Header */}
@@ -54,7 +58,7 @@ const ServicesSection = () => {
           initial={{ opacity: 0, y: 24 }} 
           animate={inView ? { opacity: 1, y: 0 } : {}} 
           transition={{ duration: 0.5 }}
-          className="text-center mb-12 sm:mb-16"
+          className="services-header"
         >
           <span className="section-badge">What I Offer</span>
           <h2 className="section-title">My <span className="gradient-text">Services</span></h2>
@@ -62,44 +66,41 @@ const ServicesSection = () => {
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+        <div className="services-grid">
           {services.map((s, i) => (
             <motion.div 
               key={i} 
               initial={{ opacity: 0, y: 24 }} 
               animate={inView ? { opacity: 1, y: 0 } : {}} 
               transition={{ duration: 0.5, delay: i * 0.1 }} 
-              className="service-card group relative"
+              whileHover={{ y: -6 }}
+              className="service-card-new"
             >
-              {/* Radial gradient background on hover */}
-              <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" 
-                style={{ background: `radial-gradient(circle at 100% 100%, color-mix(in srgb, ${s.color} 8%, transparent), transparent 60%)` }} 
-              />
-              
               {/* Icon */}
               <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center text-xl text-white mb-5 relative z-10" 
+                className="service-card-icon" 
                 style={{ 
                   background: `linear-gradient(135deg, color-mix(in srgb, ${s.color} 80%, transparent), ${s.color})`, 
-                  boxShadow: `0 8px 24px color-mix(in srgb, ${s.color} 40%, transparent)` 
+                  boxShadow: `0 8px 24px color-mix(in srgb, ${s.color} 30%, transparent)` 
                 }}
               >
                 {s.icon}
               </div>
               
               {/* Content */}
-              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-3 relative z-10" style={{ fontFamily: 'var(--font-heading)' }}>
-                {s.title}
-              </h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed relative z-10">
-                {s.desc}
-              </p>
+              <h3 className="service-card-title">{s.title}</h3>
+              <p className="service-card-desc">{s.desc}</p>
               
-              {/* Bottom animated border line */}
+              {/* Learn more link */}
+              <div className="service-card-link">
+                <span>Learn more</span>
+                <FiArrowRight size={14} />
+              </div>
+
+              {/* Hover glow */}
               <div 
-                className="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500 ease-out" 
-                style={{ background: `linear-gradient(90deg, ${s.color}, color-mix(in srgb, ${s.color} 20%, transparent))` }} 
+                className="service-card-glow"
+                style={{ background: `radial-gradient(circle at 100% 100%, color-mix(in srgb, ${s.color} 8%, transparent), transparent 60%)` }} 
               />
             </motion.div>
           ))}
