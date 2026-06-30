@@ -24,7 +24,7 @@ const projects = [
     features: ['Crop Tracking', 'Smart Farming', 'Farmer Dashboard', 'Weather Monitoring', 'Resource Management'],
     github: 'https://github.com/mafzaalwb01-dev',
     live: '#',
-    image: '/afzaal-portfolio/agri-dashboard.png',
+    image: '/assets/agri-dashboard.png',
     gradient: 'linear-gradient(135deg, #064e3b 0%, #065f46 40%, #047857 100%)',
     accentColor: '#10b981',
     badge: '🌾 Smart Farming',
@@ -37,7 +37,7 @@ const projects = [
     features: ['Online Booking', 'Hair Styling Services', 'Barber Portfolio', 'Responsive Design', 'Beauty Products', 'Customer Reviews'],
     github: 'https://github.com/mafzaalwb01-dev/hair-salon-frontend',
     live: '#',
-    image: '/hair-studio.png',
+    image: '/assets/hair-studio.png',
     gradient: 'linear-gradient(135deg, #1c1007 0%, #2d1a0a 40%, #3b1f0b 100%)',
     accentColor: '#d4a853',
     badge: '✂️ Luxury Studio',
@@ -49,7 +49,7 @@ const projects = [
     features: ['UC & Diamond Shop', 'Free Coins System', 'Reward Tracking', 'Instant Delivery', 'Gaming Wallet', 'Referral Bonuses'],
     github: 'https://github.com/mafzaalwb01-dev/UC-or-Diamond-store',
     live: '#',
-    image: '/uc-diamond-store.png',
+    image: '/assets/uc-diamond-store.png',
     gradient: 'linear-gradient(135deg, #021a1a 0%, #042f2e 40%, #0d3d3b 100%)',
     accentColor: '#2dd4bf',
     badge: '🎮 Gaming Platform',
@@ -65,14 +65,13 @@ const ProjectCard = ({ p, i, inView }) => {
       initial={{ opacity: 0, y: 36 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: i * 0.14, ease: [0.22, 1, 0.36, 1] }}
-      className={`proj-card ${p.featured ? 'proj-card-featured' : ''} ${p.gaming ? 'proj-card-gaming' : ''}`}
+      className="proj-card"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      whileHover={{ y: -8 }}
     >
       {/* Image / Visual Banner */}
       <div className="proj-banner" style={{ background: p.gradient }}>
-        {p.image ? (
+        {p.image && (
           <>
             <motion.img
               src={p.image}
@@ -80,22 +79,19 @@ const ProjectCard = ({ p, i, inView }) => {
               className="proj-banner-img"
               animate={{ scale: hovered ? 1.06 : 1 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              onError={(e) => {
+                // Fallback if image not found in assets yet
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.opacity = 0.8;
+              }}
             />
             {/* dark overlay on hover */}
             <motion.div
               className="proj-banner-overlay"
-              animate={{ opacity: hovered ? 0.45 : 0.15 }}
+              animate={{ opacity: hovered ? 0.5 : 0.15 }}
               transition={{ duration: 0.35 }}
             />
           </>
-        ) : (
-          <motion.span
-            className="proj-emoji"
-            animate={{ scale: hovered ? 1.18 : 1 }}
-            transition={{ duration: 0.4 }}
-          >
-            {p.emoji}
-          </motion.span>
         )}
 
         {/* Badge */}
@@ -132,13 +128,13 @@ const ProjectCard = ({ p, i, inView }) => {
 
         {/* Feature Tags */}
         <div className="proj-features">
-          <span className="proj-features-label"><FiTag size={10} /> Features</span>
+          <span className="proj-features-label"><FiTag size={10} /> Key Features</span>
           <div className="proj-feature-tags">
             {p.features.map((f, j) => (
               <motion.span
                 key={j}
                 className="proj-feature-tag"
-                style={{ borderColor: `${p.accentColor}30`, color: p.accentColor, background: `${p.accentColor}10` }}
+                style={{ borderColor: `color-mix(in srgb, ${p.accentColor} 25%, transparent)`, color: p.accentColor, background: `color-mix(in srgb, ${p.accentColor} 8%, transparent)` }}
                 whileHover={{ scale: 1.05 }}
               >
                 {f}
@@ -158,18 +154,18 @@ const ProjectCard = ({ p, i, inView }) => {
         </div>
 
         {/* Action Buttons */}
-        <div className="proj-actions">
+        <div className="proj-actions mt-4">
           <a
             href={p.github}
             target="_blank"
             rel="noopener noreferrer"
             className="proj-btn-outline"
           >
-            <FiGithub size={14} />
-            GitHub
+            <FiGithub size={16} />
+            GitHub Repo
           </a>
           <a href={p.live} className="proj-btn-primary">
-            <FiExternalLink size={14} />
+            <FiExternalLink size={16} />
             Live Demo
           </a>
         </div>
@@ -179,7 +175,7 @@ const ProjectCard = ({ p, i, inView }) => {
 };
 
 const ProjectsSection = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
 
   return (
     <section id="projects" className="projects-section">
@@ -212,7 +208,7 @@ const ProjectsSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.55, duration: 0.5 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
           className="projects-cta"
         >
           <a
@@ -221,9 +217,9 @@ const ProjectsSection = () => {
             rel="noopener noreferrer"
             className="projects-cta-btn"
           >
-            <FiGithub size={17} />
+            <FiGithub size={18} />
             View All Projects on GitHub
-            <FiExternalLink size={14} />
+            <FiExternalLink size={16} />
           </a>
         </motion.div>
       </div>

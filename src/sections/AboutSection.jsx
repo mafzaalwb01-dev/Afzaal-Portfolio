@@ -21,22 +21,22 @@ const AnimatedCounter = ({ end, suffix = '' }) => {
 };
 
 const stats = [
-  { icon: <FiCode size={22} />, value: 1,   suffix: '+', label: 'Years Experience', color: '#6366f1' },
-  { icon: <FiCpu  size={22} />, value: 10,  suffix: '+', label: 'Projects Done',    color: '#8b5cf6' },
-  { icon: <FiShield size={22} />, value: 9, suffix: '+', label: 'Technologies',     color: '#06b6d4' },
-  { icon: <FiAward  size={22} />, value: 100, suffix: '%', label: 'Satisfaction',   color: '#ec4899' },
+  { icon: <FiCode size={24} />, value: 1,   suffix: '+', label: 'Years Experience', color: 'var(--primary)' },
+  { icon: <FiCpu  size={24} />, value: 10,  suffix: '+', label: 'Projects Done',    color: 'var(--secondary)' },
+  { icon: <FiShield size={24} />, value: 9, suffix: '+', label: 'Technologies',     color: 'var(--accent)' },
+  { icon: <FiAward  size={24} />, value: 100, suffix: '%', label: 'Satisfaction',   color: '#10b981' },
 ];
 
 const facts = [
-  { icon: <FiBriefcase size={14} />, label: 'Role',       value: 'MERN Stack Developer' },
-  { icon: <FiCode      size={14} />, label: 'Experience', value: '1+ Year' },
-  { icon: <FiBook      size={14} />, label: 'Education',  value: '1st Year Student' },
-  { icon: <FiUser      size={14} />, label: 'Academy',    value: 'Logic Gigs' },
-  { icon: <FiMapPin    size={14} />, label: 'Location',   value: 'Pakistan 🇵🇰' },
-  { icon: <FiTarget    size={14} />, label: 'Focus',      value: 'Full Stack + Cyber Security' },
+  { icon: <FiBriefcase size={15} />, label: 'Role',       value: 'MERN Stack Developer' },
+  { icon: <FiCode      size={15} />, label: 'Experience', value: '1+ Year' },
+  { icon: <FiBook      size={15} />, label: 'Education',  value: '1st Year Student' },
+  { icon: <FiUser      size={15} />, label: 'Academy',    value: 'Logic Gigs' },
+  { icon: <FiMapPin    size={15} />, label: 'Location',   value: 'Pakistan 🇵🇰' },
+  { icon: <FiTarget    size={15} />, label: 'Focus',      value: 'Full Stack + Cyber Sec' },
 ];
 
-const techs = ['React.js', 'Node.js', 'MongoDB', 'Express.js', 'JavaScript', 'Tailwind CSS', 'Git', 'REST APIs'];
+const techs = ['React.js', 'Node.js', 'MongoDB', 'Express.js', 'JavaScript', 'Tailwind CSS', 'Next.js', 'Git'];
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 30 },
@@ -50,8 +50,8 @@ const AboutSection = () => {
   return (
     <section id="about" className="about-section">
       {/* Subtle bg blobs */}
-      <div className="about-blob about-blob-1" />
-      <div className="about-blob about-blob-2" />
+      <div className="about-blob about-blob-1" aria-hidden="true" />
+      <div className="about-blob about-blob-2" aria-hidden="true" />
 
       <div className="section-wrapper" ref={ref}>
 
@@ -81,13 +81,13 @@ const AboutSection = () => {
             transition={{ duration: 0.65, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="about-facts-col"
           >
-            <div className="about-facts-card">
+            <div className="about-facts-card glass-card">
               {/* Card header */}
               <div className="about-facts-card-header">
                 <div className="about-facts-icon">💻</div>
                 <div>
                   <h3 className="about-facts-title">Quick Facts</h3>
-                  <p className="about-facts-subtitle">About my journey</p>
+                  <p className="about-facts-subtitle">Professional snapshot</p>
                 </div>
               </div>
 
@@ -121,6 +121,7 @@ const AboutSection = () => {
           >
             <h3 className="about-bio-heading">
               Passionate Full Stack Developer{' '}
+              <br className="hidden lg:block"/>
               <span className="gradient-text">Building The Future</span>
             </h3>
 
@@ -138,7 +139,7 @@ const AboutSection = () => {
             </p>
 
             {/* Tech Tags */}
-            <div className="about-tech-label">Tech Stack</div>
+            <div className="about-tech-label">Core Technologies</div>
             <div className="about-tags">
               {techs.map((tech, i) => (
                 <motion.span
@@ -147,7 +148,7 @@ const AboutSection = () => {
                   initial={{ opacity: 0, scale: 0.85 }}
                   animate={inView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ delay: 0.4 + i * 0.05, duration: 0.35 }}
-                  whileHover={{ y: -3, scale: 1.06 }}
+                  whileHover={{ y: -3, scale: 1.05 }}
                 >
                   {tech}
                 </motion.span>
@@ -166,11 +167,11 @@ const AboutSection = () => {
           {stats.map((stat, i) => (
             <motion.div
               key={i}
-              className="about-stat-card"
-              whileHover={{ y: -6, scale: 1.03 }}
+              className="about-stat-card glass-card"
+              whileHover={{ y: -6, scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 300, damping: 18 }}
             >
-              <div className="about-stat-icon" style={{ color: stat.color, background: `${stat.color}14` }}>
+              <div className="about-stat-icon" style={{ color: stat.color, background: `color-mix(in srgb, ${stat.color} 15%, transparent)` }}>
                 {stat.icon}
               </div>
               <div className="about-stat-number" style={{ color: stat.color }}>

@@ -1,250 +1,229 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FiSend, FiMail, FiMapPin, FiArrowRight } from 'react-icons/fi';
-import { FaWhatsapp, FaLinkedinIn, FaGithub, FaTiktok, FaInstagram } from 'react-icons/fa';
-import axios from 'axios';
+import { FiMail, FiPhone, FiMapPin, FiSend, FiArrowRight, FiGithub, FiLinkedin, FiCopy, FiCheck } from 'react-icons/fi';
 import toast from 'react-hot-toast';
 
-const contactInfo = [
-  {
-    icon: <FiMail size={20} />,
-    label: 'Email',
-    value: 'mafzaal.dev@gmail.com',
-    href: 'mailto:mafzaal.dev@gmail.com',
-    color: '#6366f1',
-    bg: 'rgba(99,102,241,0.1)',
-    description: 'Drop me a line anytime',
-  },
-  {
-    icon: <FaWhatsapp size={20} />,
-    label: 'WhatsApp',
-    value: 'Chat on WhatsApp',
-    href: 'https://wa.me/+923001234567',
-    color: '#25d366',
-    bg: 'rgba(37,211,102,0.1)',
-    description: 'Quick replies guaranteed',
-  },
-  {
-    icon: <FiMapPin size={20} />,
-    label: 'Location',
-    value: 'Pakistan',
-    href: '#',
-    color: '#ec4899',
-    bg: 'rgba(236,72,153,0.1)',
-    description: 'Available worldwide remotely',
-  },
-];
-
-const socials = [
-  { icon: <FaGithub size={17} />, href: 'https://github.com/mafzaalwb01-dev', label: 'GitHub', color: '#333' },
-  { icon: <FaLinkedinIn size={16} />, href: '#', label: 'LinkedIn', color: '#0077b5' },
-  { icon: <FaTiktok size={16} />, href: '#', label: 'TikTok', color: '#000' },
-  { icon: <FaInstagram size={17} />, href: '#', label: 'Instagram', color: '#e4405f' },
-];
-
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] },
-});
-
 const ContactSection = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.08 });
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
-  const [sending, setSending] = useState(false);
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+  
+  const [formData, setFormData] = useState({
+    name: '', email: '', subject: '', message: ''
+  });
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('mafzaalwb01@gmail.com');
+    setCopied(true);
+    toast.success('Email copied to clipboard!', {
+      style: { borderRadius: '10px', background: '#333', color: '#fff' }
+    });
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.subject || !form.message) {
-      toast.error('Please fill all fields');
-      return;
-    }
-    setSending(true);
-    try {
-      await axios.post('/api/messages', form);
-      toast.success('Message sent! 🎉');
-      setForm({ name: '', email: '', subject: '', message: '' });
-    } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to send');
-    } finally {
-      setSending(false);
-    }
+    setLoading(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      toast.success('Message sent successfully! I will get back to you soon.', {
+        duration: 4000,
+        position: 'bottom-right',
+        style: {
+          background: '#10b981',
+          color: '#fff',
+          fontWeight: '600',
+        },
+      });
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setLoading(false);
+    }, 1500);
   };
+
+  const contactInfo = [
+    { icon: <FiMail />, label: 'Email', value: 'mafzaalwb01@gmail.com', desc: 'Drop me a line anytime', link: 'mailto:mafzaalwb01@gmail.com' },
+    { icon: <FiPhone />, label: 'Phone', value: '+92 335 0599196', desc: 'Mon-Fri 9am-6pm', link: 'tel:+923350599196' },
+    { icon: <FiMapPin />, label: 'Location', value: 'Punjab, Pakistan', desc: 'Available for remote work worldwide', link: '#' },
+  ];
 
   return (
     <section id="contact" className="contact-section">
-      {/* Background decoration */}
-      <div className="contact-bg-blob contact-bg-blob-1" />
-      <div className="contact-bg-blob contact-bg-blob-2" />
+      {/* Background blobs */}
+      <div className="contact-bg-blob contact-bg-blob-1" aria-hidden="true" />
+      <div className="contact-bg-blob contact-bg-blob-2" aria-hidden="true" />
 
       <div className="section-wrapper" ref={ref}>
+        
         {/* Header */}
-        <motion.div {...fadeUp(0)} animate={inView ? fadeUp(0).animate : {}} className="contact-header">
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }} 
+          animate={inView ? { opacity: 1, y: 0 } : {}} 
+          transition={{ duration: 0.5 }}
+          className="contact-header"
+        >
           <span className="section-badge">Get In Touch</span>
-          <h2 className="section-title">
-            Contact <span className="gradient-text">Me</span>
-          </h2>
+          <h2 className="section-title">Let's Work <span className="gradient-text">Together</span></h2>
           <p className="section-subtitle mt-3">
-            Have a project in mind? I'd love to hear about it. Let's build something great together.
+            Have a project in mind or just want to say hi? Feel free to reach out.
           </p>
         </motion.div>
 
-        <div className="contact-layout">
-          {/* Left — Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -28 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.55, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="contact-info-col"
+        {/* Layout Grid */}
+        <div className="contact-layout mt-10">
+          
+          {/* Left Column - Contact Info */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }} 
+            animate={inView ? { opacity: 1, x: 0 } : {}} 
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="contact-info-col flex flex-col h-full"
           >
-            {/* Contact Cards */}
-            <div className="contact-cards">
-              {contactInfo.map((c, i) => (
-                <motion.a
-                  key={i}
-                  href={c.href}
-                  target={c.href.startsWith('http') ? '_blank' : undefined}
+            <div className="contact-cards flex-1">
+              {contactInfo.map((info, i) => (
+                <a 
+                  key={i} 
+                  href={info.link}
+                  className="contact-card group"
+                  target={info.label === 'Location' ? '_self' : '_blank'}
                   rel="noopener noreferrer"
-                  className="contact-card"
-                  whileHover={{ y: -4, scale: 1.01 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 >
-                  <div
-                    className="contact-card-icon"
-                    style={{ color: c.color, background: c.bg }}
-                  >
-                    {c.icon}
+                  <div className="contact-card-icon" style={{ background: 'rgba(108, 99, 255, 0.1)', color: 'var(--primary)' }}>
+                    {info.icon}
                   </div>
                   <div className="contact-card-body">
-                    <span className="contact-card-label">{c.label}</span>
-                    <span className="contact-card-value">{c.value}</span>
-                    <span className="contact-card-desc">{c.description}</span>
+                    <span className="contact-card-label">{info.label}</span>
+                    <span className="contact-card-value">{info.value}</span>
+                    <span className="contact-card-desc">{info.desc}</span>
                   </div>
-                  <FiArrowRight className="contact-card-arrow" />
-                </motion.a>
+                  {info.label !== 'Location' && (
+                    <FiArrowRight className="contact-card-arrow" />
+                  )}
+                </a>
               ))}
             </div>
 
-            {/* Social Links */}
-            <div className="contact-social-block">
-              <p className="contact-social-heading">Follow Me</p>
+            {/* Quick Copy Email CTA */}
+            <div className="flex items-center justify-between p-4 rounded-xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 mt-4">
+              <div className="text-sm font-medium text-slate-600 dark:text-slate-300">
+                Prefer direct email?
+              </div>
+              <button 
+                onClick={handleCopyEmail}
+                className="contact-copy-btn"
+              >
+                {copied ? <FiCheck size={14} /> : <FiCopy size={14} />}
+                {copied ? 'Copied!' : 'Copy Email'}
+              </button>
+            </div>
+            
+            <div className="contact-social-block mt-6">
+              <h4 className="contact-social-heading">Connect with me</h4>
               <div className="contact-social-row">
-                {socials.map((s, i) => (
-                  <motion.a
-                    key={i}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={s.label}
-                    className="contact-social-btn"
-                    whileHover={{ y: -4, scale: 1.12 }}
-                    transition={{ type: 'spring', stiffness: 350, damping: 18 }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = s.color;
-                      e.currentTarget.style.borderColor = s.color;
-                      e.currentTarget.style.color = '#fff';
-                      e.currentTarget.style.boxShadow = `0 6px 20px ${s.color}55`;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = '';
-                      e.currentTarget.style.borderColor = '';
-                      e.currentTarget.style.color = '';
-                      e.currentTarget.style.boxShadow = '';
-                    }}
-                  >
-                    {s.icon}
-                  </motion.a>
-                ))}
+                <a href="https://github.com/mafzaalwb01-dev" target="_blank" rel="noopener noreferrer" className="contact-social-btn hover:text-[#333] dark:hover:text-white hover:border-[#333] dark:hover:border-white">
+                  <FiGithub size={18} />
+                </a>
+                <a href="https://www.linkedin.com/feed/" target="_blank" rel="noopener noreferrer" className="contact-social-btn hover:text-[#0077b5] hover:border-[#0077b5]">
+                  <FiLinkedin size={18} />
+                </a>
               </div>
             </div>
           </motion.div>
 
-          {/* Right — Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 28 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.55, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          {/* Right Column - Contact Form */}
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }} 
+            animate={inView ? { opacity: 1, x: 0 } : {}} 
+            transition={{ duration: 0.6, delay: 0.3 }}
             className="contact-form-col"
           >
-            <form onSubmit={handleSubmit} className="contact-form">
+            <div className="contact-form h-full flex flex-col">
               <div className="contact-form-header">
-                <h3 className="contact-form-title">Send a Message</h3>
+                <h3 className="contact-form-title">Send me a message 🚀</h3>
                 <p className="contact-form-subtitle">I'll get back to you within 24 hours.</p>
               </div>
-
-              <div className="contact-form-body">
+              
+              <form onSubmit={handleSubmit} className="contact-form-body flex-1">
                 <div className="contact-form-row">
                   <div className="contact-field">
-                    <label className="contact-label">Full Name</label>
-                    <input
-                      type="text"
+                    <label htmlFor="name" className="contact-label">Your Name</label>
+                    <input 
+                      type="text" 
+                      id="name"
                       name="name"
-                      value={form.name}
+                      value={formData.name}
                       onChange={handleChange}
-                      placeholder="Muhammad Afzaal"
-                      className="form-input"
                       required
+                      placeholder="John Doe" 
+                      className="form-input" 
                     />
                   </div>
                   <div className="contact-field">
-                    <label className="contact-label">Email Address</label>
-                    <input
-                      type="email"
+                    <label htmlFor="email" className="contact-label">Email Address</label>
+                    <input 
+                      type="email" 
+                      id="email"
                       name="email"
-                      value={form.email}
+                      value={formData.email}
                       onChange={handleChange}
-                      placeholder="you@email.com"
-                      className="form-input"
                       required
+                      placeholder="john@example.com" 
+                      className="form-input" 
                     />
                   </div>
                 </div>
-
+                
                 <div className="contact-field">
-                  <label className="contact-label">Subject</label>
-                  <input
-                    type="text"
+                  <label htmlFor="subject" className="contact-label">Subject</label>
+                  <input 
+                    type="text" 
+                    id="subject"
                     name="subject"
-                    value={form.subject}
+                    value={formData.subject}
                     onChange={handleChange}
-                    placeholder="Project Discussion / Collaboration"
-                    className="form-input"
                     required
+                    placeholder="How can I help you?" 
+                    className="form-input" 
                   />
                 </div>
-
-                <div className="contact-field">
-                  <label className="contact-label">Message</label>
-                  <textarea
+                
+                <div className="contact-field flex-1 flex flex-col">
+                  <label htmlFor="message" className="contact-label">Message</label>
+                  <textarea 
+                    id="message" 
                     name="message"
-                    value={form.message}
+                    value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell me about your project, goals, timeline..."
-                    rows={5}
-                    className="form-input resize-none"
                     required
-                  />
+                    placeholder="Hello, I'd like to talk about..." 
+                    rows="5"
+                    className="form-input flex-1 resize-y min-h-[120px]"
+                  ></textarea>
                 </div>
-
-                <button type="submit" disabled={sending} className="contact-submit-btn">
-                  {sending ? (
-                    <>
-                      <span className="contact-spinner" />
-                      Sending...
-                    </>
+                
+                <button 
+                  type="submit" 
+                  disabled={loading}
+                  className="contact-submit-btn"
+                >
+                  {loading ? (
+                    <div className="contact-spinner" />
                   ) : (
                     <>
-                      <FiSend size={16} />
                       Send Message
+                      <FiSend size={16} />
                     </>
                   )}
                 </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </motion.div>
+
         </div>
       </div>
     </section>

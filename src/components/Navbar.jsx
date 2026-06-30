@@ -57,8 +57,7 @@ const Navbar = () => {
             <span>M</span>
           </div>
           <span className="navbar-logo-text">
-            <span className="gradient-text">Afzaal</span>
-            <span className="navbar-logo-dot">.dev</span>
+            Afzaal<span className="navbar-logo-dot">.dev</span>
           </span>
         </div>
 

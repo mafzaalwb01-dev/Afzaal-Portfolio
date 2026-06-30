@@ -41,12 +41,13 @@ function App() {
             toastOptions={{
               duration: 4000,
               style: {
-                background: 'rgba(255,255,255,0.95)',
+                background: 'var(--bg-card)',
+                color: 'var(--text-primary)',
                 backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(99,102,241,0.2)',
-                borderRadius: '12px',
-                fontFamily: 'Inter, sans-serif',
-                boxShadow: '0 8px 32px rgba(99,102,241,0.15)',
+                border: '1px solid var(--border-card)',
+                borderRadius: 'var(--radius-lg)',
+                fontFamily: 'var(--font-body)',
+                boxShadow: 'var(--shadow-md)',
               },
             }}
           />
